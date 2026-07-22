@@ -1,0 +1,36 @@
+# Core
+torch>=2.1.0
+torchvision>=0.16.0
+numpy>=1.24
+opencv-python>=4.8
+Pillow
+tqdm
+pyyaml
+omegaconf
+
+# 3DGS / NVS
+gsplat            # or nerfstudio, depending on chosen base framework
+plyfile
+scipy
+
+# Camera / geometry
+pycolmap          # for pose refinement / SfM utilities, optional
+
+# Metrics
+scikit-image      # SSIM
+lpips
+imageio
+imageio-ffmpeg
+
+# Mesh export
+open3d
+trimesh
+
+# Experiment tracking (pick one)
+tensorboard
+# wandb
+
+# Dev
+pytest
+black
+ruff

@@ -1,0 +1,9 @@
+# Pyrefly config — suppress false-positive errors on skeleton/stub code.
+# https://github.com/facebook/pyrefly
+
+# Tắt toàn bộ type errors cho project này trong giai đoạn skeleton.
+# Xóa dòng errors = [] khi bắt đầu implement thật.
+errors = []
+
+# Không báo lỗi khi hàm không có return annotation
+check_untyped_defs = false

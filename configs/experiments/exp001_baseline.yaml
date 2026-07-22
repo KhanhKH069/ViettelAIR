@@ -1,0 +1,8 @@
+# First experiment: framework defaults, no special regularization.
+# Usage: python scripts/run_train.py --base configs/base.yaml --scene configs/scene_01.yaml --exp configs/experiments/exp001_baseline.yaml
+
+experiment:
+  name: "exp001_baseline"
+  notes: "Baseline run with default densification and no depth supervision."
+
+overrides: {}

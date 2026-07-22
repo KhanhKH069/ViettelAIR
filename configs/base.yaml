@@ -1,0 +1,40 @@
+# Base config — shared defaults, override per-scene / per-experiment.
+
+project:
+  name: "bts-digital-twin"
+  seed: 42
+  device: "cuda"
+
+model:
+  type: "gsplat"          # options: gsplat | nerfacto | custom
+  sh_degree: 3             # spherical harmonics degree for view-dependent color
+  init_from: "sfm_points"  # options: sfm_points | random
+
+optimizer:
+  lr_position: 1.6e-4
+  lr_feature: 2.5e-3
+  lr_opacity: 5.0e-2
+  lr_scaling: 5.0e-3
+  lr_rotation: 1.0e-3
+  lr_scheduler: "exp_decay"
+  iterations: 30000
+
+densification:
+  start_iter: 500
+  end_iter: 15000
+  interval: 100
+  grad_threshold: 0.0002
+  opacity_reset_interval: 3000
+  prune_opacity_threshold: 0.005
+
+loss:
+  photometric: "l1"
+  ssim_weight: 0.2
+  depth_reg_weight: 0.0     # >0 if depth supervision available
+  scale_reg_weight: 0.0     # regularize elongated gaussians (helps thin structures)
+
+logging:
+  log_interval: 100
+  eval_interval: 1000
+  checkpoint_interval: 5000
+  backend: "tensorboard"    # options: tensorboard | wandb | none

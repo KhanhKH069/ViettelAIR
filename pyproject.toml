@@ -1,0 +1,17 @@
+[project]
+name = "bts-digital-twin"
+version = "0.1.0"
+description = "3D reconstruction and novel view synthesis for BTS station Digital Twin"
+requires-python = ">=3.10"
+
+[tool.black]
+line-length = 100
+
+[tool.ruff]
+line-length = 100
+
+[tool.pyrefly]
+# Skeleton codebase — suppress errors on intentional NotImplementedError stubs.
+# Remove or tighten these once real implementations land.
+ignore_missing_source = true
+errors = []

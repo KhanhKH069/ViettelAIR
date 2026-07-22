@@ -1,0 +1,21 @@
+# Data (large, do not commit)
+data/raw/
+data/processed/
+data/target_views/
+outputs/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
+
+# Checkpoints / logs
+*.ckpt
+*.pth
+*.ply
+runs/
+wandb/
+
+# OS
+.DS_Store

@@ -1,0 +1,20 @@
+# Per-scene overrides. Copy this file per scene once real data arrives,
+# e.g. configs/scene_01.yaml, and adjust the fields below.
+
+scene:
+  name: "scene_XX"
+  raw_dir: "data/raw/scene_XX"
+  processed_dir: "data/processed/scene_XX"
+  target_views_file: "data/target_views/scene_XX/poses.json"
+
+  # Scene normalization — TBD once real pose/scale data is inspected.
+  normalize: true
+  scene_scale: null         # auto-computed from camera positions if null
+  bbox: null                # [xmin,ymin,zmin,xmax,ymax,zmax], auto if null
+
+  # Ray sampling bounds — depends on BTS tower height (~20-50m)
+  near: 0.1
+  far: 100.0
+
+  # Optional: region of interest for densification priority (e.g. antenna area)
+  priority_regions: []
