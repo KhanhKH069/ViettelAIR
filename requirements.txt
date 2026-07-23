@@ -3,34 +3,34 @@ torch>=2.1.0
 torchvision>=0.16.0
 numpy>=1.24
 opencv-python>=4.8
-Pillow
+Pillow>=10.0
 tqdm
 pyyaml
 omegaconf
 
-# 3DGS / NVS
-gsplat            # or nerfstudio, depending on chosen base framework
+# 3DGS — gsplat (pip install gsplat, requires CUDA)
+# If gsplat is unavailable, see third_party/ for manual build instructions
+gsplat>=1.4.0
 plyfile
 scipy
 
 # Camera / geometry
-pycolmap          # for pose refinement / SfM utilities, optional
+pycolmap          # optional: for pose refinement, not required for basic pipeline
 
 # Metrics
-scikit-image      # SSIM
-lpips
+scikit-image      # SSIM reference implementation (not used in training, just debug)
+lpips             # Learned Perceptual Image Patch Similarity
 imageio
 imageio-ffmpeg
 
-# Mesh export
+# Mesh export (optional, for Digital Twin deliverable)
 open3d
 trimesh
 
-# Experiment tracking (pick one)
+# Experiment tracking
 tensorboard
-# wandb
 
-# Dev
+# Dev / testing
 pytest
 black
 ruff

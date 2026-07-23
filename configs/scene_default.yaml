@@ -1,20 +1,28 @@
-# Per-scene overrides. Copy this file per scene once real data arrives,
-# e.g. configs/scene_01.yaml, and adjust the fields below.
+# Per-scene config template.
+# Copy to configs/scene_001.yaml, scene_002.yaml, etc.
+# Fields here override base.yaml.
 
 scene:
-  name: "scene_XX"
-  raw_dir: "data/raw/scene_XX"
-  processed_dir: "data/processed/scene_XX"
-  target_views_file: "data/target_views/scene_XX/poses.json"
+  name: "scene_001"   # must match the subdirectory name in data/raw/
 
-  # Scene normalization — TBD once real pose/scale data is inspected.
-  normalize: true
-  scene_scale: null         # auto-computed from camera positions if null
-  bbox: null                # [xmin,ymin,zmin,xmax,ymax,zmax], auto if null
+  # Data paths — relative to project root
+  scene_dir: "data/raw/scene_001"   # must contain train/ and test/
+  # Layout expected:
+  #   train/images/         ← RGB training images
+  #   train/sparse/0/       ← cameras.bin, images.bin, points3D.bin
+  #   test/test_poses.csv   ← target camera poses
 
-  # Ray sampling bounds — depends on BTS tower height (~20-50m)
-  near: 0.1
-  far: 100.0
+# Model overrides for this scene (optional)
+# model:
+#   sh_degree: 3
 
-  # Optional: region of interest for densification priority (e.g. antenna area)
-  priority_regions: []
+# Enable scale regularisation for thin structures (antennas, cables)
+loss:
+  scale_reg_weight: 0.01   # set >0 if floaters appear around thin structures
+
+# Training overrides (optional)
+# optimizer:
+#   iterations: 20000
+
+# Render at full resolution (override if memory is tight)
+# max_image_size: 1920

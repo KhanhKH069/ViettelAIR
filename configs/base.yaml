@@ -6,23 +6,23 @@ project:
   device: "cuda"
 
 model:
-  type: "gsplat"          # options: gsplat | nerfacto | custom
+  type: "gsplat"           # options: gsplat | nerfacto | custom
   sh_degree: 3             # spherical harmonics degree for view-dependent color
   init_from: "sfm_points"  # options: sfm_points | random
 
 optimizer:
   lr_position: 1.6e-4
-  lr_feature: 2.5e-3
-  lr_opacity: 5.0e-2
-  lr_scaling: 5.0e-3
+  lr_feature:  2.5e-3
+  lr_opacity:  5.0e-2
+  lr_scaling:  5.0e-3
   lr_rotation: 1.0e-3
   lr_scheduler: "exp_decay"
   iterations: 30000
 
 densification:
   start_iter: 500
-  end_iter: 15000
-  interval: 100
+  end_iter:   15000
+  interval:   100
   grad_threshold: 0.0002
   opacity_reset_interval: 3000
   prune_opacity_threshold: 0.005
@@ -30,11 +30,19 @@ densification:
 loss:
   photometric: "l1"
   ssim_weight: 0.2
-  depth_reg_weight: 0.0     # >0 if depth supervision available
-  scale_reg_weight: 0.0     # regularize elongated gaussians (helps thin structures)
+  scale_reg_weight:   0.0   # >0 for thin-structure scenes (BTS antennas/cables)
+  opacity_reg_weight: 0.0   # >0 to prune floaters aggressively
+
+# Competition scoring
+evaluation:
+  psnr_max: 40.0            # PSNR normalisation ceiling
+
+# Image loading
+max_image_size: 0           # 0 = no resize; set e.g. 1920 to cap longest edge
+val_ratio: 0.1              # fraction of training views held for internal val
 
 logging:
-  log_interval: 100
-  eval_interval: 1000
+  log_interval:        100
+  eval_interval:      1000
   checkpoint_interval: 5000
   backend: "tensorboard"    # options: tensorboard | wandb | none

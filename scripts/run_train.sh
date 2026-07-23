@@ -1,10 +1,13 @@
 #!/usr/bin/env bash
-# Train a scene with a given experiment config.
-# Usage: ./scripts/run_train.sh scene_01 exp001_baseline
+# Train one scene (and render test poses).
+# Usage: ./scripts/run_train.sh scene_001 [--iters 30000] [--resume]
 set -e
-SCENE=$1
-EXP=$2
-python -m src.training.trainer \
-    --base configs/base.yaml \
-    --scene "configs/${SCENE}.yaml" \
-    --exp "configs/experiments/${EXP}.yaml"
+SCENE=${1:?Usage: run_train.sh <scene_name> [extra args...]}
+shift
+python scripts/train_all_scenes.py \
+    --scenes "$SCENE" \
+    --config configs/base.yaml \
+    --data-root data/raw \
+    --output-root outputs \
+    --no-zip \
+    "$@"

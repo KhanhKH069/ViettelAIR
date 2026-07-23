@@ -1,7 +1,20 @@
 #!/usr/bin/env bash
-# Run internal validation metrics (PSNR/SSIM/LPIPS) on held-out views.
-# Usage: ./scripts/run_eval.sh scene_01 outputs/scene_01/exp001_baseline/checkpoints/last.ckpt
+# Evaluate renders against ground-truth (if GT is available).
+# Usage: ./scripts/run_eval.sh <pred_root> <gt_root> [--psnr-max 40]
 set -e
-SCENE=$1
-CKPT=$2
-python -m src.evaluation.metrics --scene "configs/${SCENE}.yaml" --checkpoint "$CKPT"
+PRED_ROOT=${1:?Usage: run_eval.sh <pred_root> <gt_root>}
+GT_ROOT=${2:?Usage: run_eval.sh <pred_root> <gt_root>}
+PSNR_MAX=${3:-40.0}
+
+python - <<EOF
+import sys; sys.path.insert(0, ".")
+import json
+from src.evaluation.metrics import evaluate_all_scenes
+
+results = evaluate_all_scenes(
+    pred_root = "$PRED_ROOT",
+    gt_root   = "$GT_ROOT",
+    psnr_max  = $PSNR_MAX,
+)
+import json; print(json.dumps(results, indent=2))
+EOF
